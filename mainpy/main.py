@@ -132,21 +132,44 @@ def admin_login():
             return render_template('admin_login.html', error='Invalid credentials')
     return render_template('admin_login.html')
 
+# @app.route('/admin/dashboard')
+# def admin_dashboard():
+#     if not session.get('admin'):
+#         return redirect(url_for('admin_login'))
+
+#     results = []
+#     with open(RESULT_FILE, 'r', newline='') as f:
+#         reader = csv.DictReader(f)
+#         for row in reader:
+#             # Defensive check to ensure required fields exist
+#             if 'name' in row and 'phone' in row:
+#                 results.append(row)
+
+#     return render_template('admin.html', results=results)
+
+
 @app.route('/admin/dashboard')
 def admin_dashboard():
     if not session.get('admin'):
         return redirect(url_for('admin_login'))
 
     results = []
-    with open(RESULT_FILE, 'r', newline='') as f:
-        reader = csv.DictReader(f)
-        for row in reader:
-            # Defensive check to ensure required fields exist
-            if 'name' in row and 'phone' in row:
-                results.append(row)
+    try:
+        with open(RESULT_FILE, 'r', newline='') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                print(f"Read row: {row}")  # This is our little detective!
+                if 'name' in row and 'phone' in row:
+                    results.append(row)
+                else:
+                    print(f"Skipping row because 'name' or 'phone' is missing: {row}") # Another detective!
+    except FileNotFoundError:
+        print(f"Error: Could not find the file {RESULT_FILE}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
+    print(f"Final results: {results}") # One more detective to see what we ended up with!
     return render_template('admin.html', results=results)
-
 
 @app.route('/admin/logout')
 def admin_logout():
