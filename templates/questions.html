@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase {{ phase_id }} - Questions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Logo Bar at the top of the page -->
+    <div id="logo-bar">
+        <div id="logo-wrapper">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </div>
+    </div>
+
+    <!-- Main Container for Questions -->
+    <div class="container">
+        <h1>Phase {{ phase_id }} - Questions</h1>
+        <form method="POST">
+            {% for question in questions %}
+            <fieldset>
+                <legend><strong>Q{{ loop.index }}:</strong> {{ question['question'] }}</legend>
+                {% set qid = question['id'] if question['id'] is not none else loop.index %}
+                {% for option in question['options'] %}
+                <label>
+                    <input type="radio" name="q{{ qid }}" value="{{ option }}" required>
+                    {{ option }}
+                </label><br>
+                {% endfor %}
+            </fieldset>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>
