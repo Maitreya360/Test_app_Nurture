@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phase {{ phase_id }} - Questions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <style>
+        /* Fixed Logo Bar */
+        #logo-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-color: #ffffff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #logo-wrapper img {
+            height: 50px;
+        }
+
+        /* Timer Styling */
+        #timer {
+            font-size: 36px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        /* Prevent content from going under fixed header */
+        .container {
+            margin-top: 90px;
+            padding: 20px;
+        }
+        #timer {
+    font-size: 40px;
+    font-weight: bold;
+    color: #000000;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+    </style>
+
+
+</head>
+
+<body>
+
+    <div id="logo-bar">
+        <div id="logo-wrapper">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
+        </div>
+        <div id="timer">Time Left: 5:00</div>
+    </div>
+
+    <div class="container">
+        <h1>Phase {{ phase_id }} - Questions</h1>
+        <form method="POST">
+            {% for question in questions %}
+            <fieldset>
+                <legend><strong>Q{{ loop.index }}:</strong> {{ question['question'] }}</legend>
+                {% set qid = question['id'] if question['id'] is not none else loop.index %}
+                {% for option in question['options'] %}
+                <label>
+                    <input type="radio" name="q{{ qid }}" value="{{ option }}">
+                    {{ option }}
+                </label><br>
+                {% endfor %}
+            </fieldset>
+            {% endfor %}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function startTimer(durationInSeconds, displayElementId) {
+            let timer = durationInSeconds;
+            const display = document.getElementById(displayElementId);
+
+            function updateTimer() {
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+
+                display.textContent = `Time Left: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+
+                if (--timer < 0) {
+                    // What should happen when the timer runs out?
+                    // For example, you could automatically submit the form:
+                    clearInterval(intervalId); // Stop the timer
+                    alert("Time's up!");
+                    document.querySelector('form').submit();
+                }
+            }
+
+            updateTimer(); // Display initial time
+            const intervalId = setInterval(updateTimer, 1000); // Update every second
+        }
+
+        // Set the test duration in seconds (e.g., 300 seconds for 5 minutes)
+        const testDuration = 300;
+        const timerDisplayId = 'timer';
+        startTimer(testDuration, timerDisplayId);
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding-top: 120px; /* slightly more than logo-bar height */
+    padding: 0;
+}
+
+.container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#logo-wrapper img {
+    height: 80px; /* Adjust to the size you want */
+    width: auto; /* Keep aspect ratio */
+}
+
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+label {
+    font-size: 1.1em;
+    color: #333;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    background: linear-gradient(135deg, #007BFF, #0056b3);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #0056b3, #004494);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 10px rgba(0, 123, 255, 0.3);
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+    text-align: center;
+}
+
+ul li a {
+    font-size: 1.2em;
+    color: #007BFF;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+.question {
+    margin-bottom: 20px;
+}
+
+.question p {
+    font-size: 1.1em;
+    color: #333;
+}
+
+.question label {
+    display: block;
+    margin: 5px 0;
+}
+
+
+  
